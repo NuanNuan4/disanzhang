@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第三章数据可视化交互网页</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>第三章数据可视化交互网页</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-target="home">首页</button>
+                <button class="nav-btn" data-target="sin-cos">三角函数</button>
+                <button class="nav-btn" data-target="box-office">票房数据</button>
+                <button class="nav-btn" data-target="math-functions">数学函数</button>
+                <button class="nav-btn" data-target="statistical">统计分析</button>
+                <button class="nav-btn" data-target="financial">金融数据</button>
+                <button class="nav-btn" data-target="3d-visualization">3D可视化</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <!-- 首页 -->
+            <section id="home" class="content-section active">
+                <h2>欢迎来到数据可视化交互平台</h2>
+                <div class="card-container">
+                    <div class="card" data-target="sin-cos">
+                        <h3>三角函数可视化</h3>
+                        <p>探索正弦、余弦、正切等三角函数性质</p>
+                    </div>
+                    <div class="card" data-target="box-office">
+                        <h3>2019年内地电影票房排行</h3>
+                        <p>分析电影票房数据和市场表现</p>
+                    </div>
+                    <div class="card" data-target="math-functions">
+                        <h3>数学函数分析</h3>
+                        <p>多项式、指数、对数等函数可视化</p>
+                    </div>
+                    <div class="card" data-target="statistical">
+                        <h3>统计分析图表</h3>
+                        <p>散点图、箱线图、热力图等统计图表</p>
+                    </div>
+                    <div class="card" data-target="financial">
+                        <h3>金融数据可视化</h3>
+                        <p>股票走势、K线图、技术指标分析</p>
+                    </div>
+                    <div class="card" data-target="3d-visualization">
+                        <h3>3D数据可视化</h3>
+                        <p>三维空间中的函数和曲面展示</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 正弦/余弦函数页面 -->
+            <section id="sin-cos" class="content-section">
+                <h2>正弦/余弦函数可视化</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="amplitude">振幅:</label>
+                        <input type="range" id="amplitude" min="0.1" max="2" step="0.1" value="1">
+                        <span id="amplitude-value">1</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="frequency">频率:</label>
+                        <input type="range" id="frequency" min="0.5" max="3" step="0.1" value="1">
+                        <span id="frequency-value">1</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="phase">相位:</label>
+                        <input type="range" id="phase" min="0" max="6.28" step="0.1" value="0">
+                        <span id="phase-value">0</span>
+                    </div>
+                </div>
+                <div id="sin-cos-chart"></div>
+            </section>
+
+            <!-- 票房数据页面 -->
+            <section id="box-office" class="content-section">
+                <h2>2019年内地电影票房排行榜</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="sort-order">排序方式:</label>
+                        <select id="sort-order">
+                            <option value="desc">票房降序</option>
+                            <option value="asc">票房升序</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="min-revenue">最低票房(亿元):</label>
+                        <input type="range" id="min-revenue" min="0" max="50" step="1" value="0">
+                        <span id="min-revenue-value">0</span>
+                    </div>
+                </div>
+                <div id="box-office-chart"></div>
+            </section>
+
+            <!-- 数学函数页面 -->
+            <section id="math-functions" class="content-section">
+                <h2>数学函数可视化分析</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="function-type">函数类型:</label>
+                        <select id="function-type">
+                            <option value="polynomial">多项式函数</option>
+                            <option value="exponential">指数函数</option>
+                            <option value="logarithmic">对数函数</option>
+                            <option value="rational">有理函数</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="coefficient">系数调整:</label>
+                        <input type="range" id="coefficient" min="-5" max="5" step="0.1" value="1">
+                        <span id="coefficient-value">1</span>
+                    </div>
+                </div>
+                <div id="math-functions-chart"></div>
+            </section>
+
+            <!-- 统计分析页面 -->
+            <section id="statistical" class="content-section">
+                <h2>统计分析图表</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="chart-type">图表类型:</label>
+                        <select id="chart-type">
+                            <option value="scatter">散点图</option>
+                            <option value="box">箱线图</option>
+                            <option value="heatmap">热力图</option>
+                            <option value="histogram">直方图</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="data-size">数据规模:</label>
+                        <input type="range" id="data-size" min="10" max="1000" step="10" value="100">
+                        <span id="data-size-value">100</span>
+                    </div>
+                </div>
+                <div id="statistical-chart"></div>
+            </section>
+
+            <!-- 金融数据页面 -->
+            <section id="financial" class="content-section">
+                <h2>金融数据可视化</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="stock-type">股票类型:</label>
+                        <select id="stock-type">
+                            <option value="tech">科技股</option>
+                            <option value="finance">金融股</option>
+                            <option value="energy">能源股</option>
+                            <option value="consumer">消费股</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="time-period">时间周期:</label>
+                        <select id="time-period">
+                            <option value="1d">1天</option>
+                            <option value="1w">1周</option>
+                            <option value="1m">1月</option>
+                            <option value="1y">1年</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="financial-chart"></div>
+            </section>
+
+            <!-- 3D可视化页面 -->
+            <section id="3d-visualization" class="content-section">
+                <h2>3D数据可视化</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="3d-function">3D函数:</label>
+                        <select id="3d-function">
+                            <option value="paraboloid">抛物面</option>
+                            <option value="saddle">马鞍面</option>
+                            <option value="sphere">球面</option>
+                            <option value="wave">波形曲面</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="rotation-speed">旋转速度:</label>
+                        <input type="range" id="rotation-speed" min="0" max="10" step="1" value="5">
+                        <span id="rotation-speed-value">5</span>
+                    </div>
+                </div>
+                <div id="3d-chart"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
